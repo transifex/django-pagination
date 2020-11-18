@@ -4,7 +4,7 @@ except NameError:
     from sets import Set as set
 
 from django import template
-from django.template import TOKEN_BLOCK
+from django.template.base import TOKEN_BLOCK
 from django.http import Http404
 from django.core.paginator import Paginator, InvalidPage
 from django.conf import settings
@@ -148,7 +148,7 @@ def paginate(context, window=DEFAULT_WINDOW, hashtag=''):
         paginator = context['paginator']
         page_obj = context['page_obj']
         page_suffix = context.get('page_suffix', '')
-        page_range = paginator.page_range
+        page_range = list(paginator.page_range)
         # Calculate the record range in the current page for display.
         records = {'first': 1 + (page_obj.number - 1) * paginator.per_page}
         records['last'] = records['first'] + paginator.per_page - 1

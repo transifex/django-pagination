@@ -234,9 +234,7 @@ def paginate(context, window=DEFAULT_WINDOW, hashtag=''):
             if 'page%s' % page_suffix in getvars:
                 del getvars['page%s' % page_suffix]
             # Useful in some cases, e.g. _pjax
-            for var in getvars.keys():
-                if var.startswith('_'):
-                    del getvars[var]
+            getvars = {k:v for k,v in getvars.items() if not k.startswith('_')}
             if len(getvars.keys()) > 0:
                 to_return['getvars'] = "&%s" % getvars.urlencode()
             else:
